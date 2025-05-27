@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:temple_on_wheel/components/custom_navbar.dart';
-import 'package:temple_on_wheel/screens/account_screen.dart';
+import 'package:temple_on_wheel/screens/Account/account_screen.dart';
 import 'package:temple_on_wheel/screens/e_station_screen.dart';
 import 'package:temple_on_wheel/screens/history_screen.dart';
 import 'package:temple_on_wheel/screens/home_screen.dart';
