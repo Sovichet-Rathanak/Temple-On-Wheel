@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:temple_on_wheel/screens/main_screen.dart';
 
 void main() {
+  debugPaintSizeEnabled = false;
   runApp(const TempleApp());
 }
 

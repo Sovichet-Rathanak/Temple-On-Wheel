@@ -17,7 +17,8 @@ class AccountSettingBtn extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(12),
+        color: Colors.transparent,
+        padding: EdgeInsets.all(16),
         child: Row(
           children: [
             Container(

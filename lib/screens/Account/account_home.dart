@@ -37,19 +37,19 @@ class AccountHome extends StatelessWidget {
                       margin: EdgeInsets.only(top: 30),
                       child: CircleAvatar(
                         backgroundColor: kSecondaryThemeColor,
-                        radius: 120,
+                        radius: 90,
                         child: CircleAvatar(
                           backgroundColor: kSecondaryThemeColor,
                           backgroundImage: AssetImage(
                             'assets/images/orang.jpg',
                           ),
-                          radius: 115,
+                          radius: 85,
                         ),
                       ),
                     ),
                     Positioned(
                       bottom: 10,
-                      right: 90,
+                      right: 100,
                       child: Container(
                         decoration: BoxDecoration(
                           color: kMainThemeColor,
@@ -57,7 +57,7 @@ class AccountHome extends StatelessWidget {
                             color: kSecondaryThemeColor,
                             width: 2,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderRadius: BorderRadius.all(Radius.circular(25)),
                         ),
                         child: IconButton(
                           onPressed: () {
@@ -65,7 +65,7 @@ class AccountHome extends StatelessWidget {
                           },
                           icon: Icon(Icons.edit),
                           color: Colors.white,
-                          iconSize: 25,
+                          iconSize: 20,
                         ),
                       ),
                     ),
