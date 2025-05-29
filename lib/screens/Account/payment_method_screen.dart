@@ -35,6 +35,32 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          Container(
+            margin: EdgeInsets.only(top: 20, bottom: 20),
+            child: Text(
+              "Payment Methods",
+              style: TextStyle(
+                fontFamily: "Inter",
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+                fontSize: 24,
+              ),
+            ),
+          ),
+
+          Container(
+            margin: EdgeInsets.only(top: 30, bottom: 10),
+            child: Text(
+              "Payment Details",
+              style: TextStyle(
+                fontFamily: "Inter",
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+                fontSize: 18,
+              ),
+            ),
+          ),
+
           CreditCardWidget(
             cardNumber: cardNumber,
             expiryDate: expiryDate,
@@ -51,7 +77,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
           ),
 
           Container(
-            margin: EdgeInsets.only(top: 50, bottom: 5),
+            margin: EdgeInsets.only(top: 30, bottom: 10),
             child: Text(
               "Input Card Informations",
               style: TextStyle(
@@ -63,48 +89,58 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
             ),
           ),
 
-          CreditCardForm(
-            formKey: formKey,
-            cardNumber: cardNumber,
-            expiryDate: expiryDate,
-            cardHolderName: cardHolderName,
-            cvvCode: cvvCode,
-            onCreditCardModelChange: onModelChange,
-            obscureCvv: true,
-            obscureNumber: true,
-            isHolderNameVisible: true,
-            isCardNumberVisible: true,
-            isExpiryDateVisible: true,
-            enableCvv: true,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            cvvValidationMessage: 'Please input a valid CVV',
-            dateValidationMessage: 'Please input a valid date',
-            numberValidationMessage: 'Please input a valid number',
-            isCardHolderNameUpperCase: true,
-            inputConfiguration: const InputConfiguration(
-              cardNumberDecoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Number',
-                hintText: 'XXXX XXXX XXXX XXXX',
+          Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+                color: Colors.black,
               ),
-              expiryDateDecoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Expired Date',
-                hintText: 'XX/XX',
+              borderRadius: BorderRadius.all(Radius.circular(12))
+            ),
+            child: CreditCardForm(
+              formKey: formKey,
+              cardNumber: cardNumber,
+              expiryDate: expiryDate,
+              cardHolderName: cardHolderName,
+              cvvCode: cvvCode,
+              onCreditCardModelChange: onModelChange,
+              obscureCvv: true,
+              obscureNumber: true,
+              isHolderNameVisible: true,
+              isCardNumberVisible: true,
+              isExpiryDateVisible: true,
+              enableCvv: true,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              cvvValidationMessage: 'Please input a valid CVV',
+              dateValidationMessage: 'Please input a valid date',
+              numberValidationMessage: 'Please input a valid number',
+              isCardHolderNameUpperCase: true,
+              inputConfiguration: const InputConfiguration(
+                cardNumberDecoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Number',
+                  hintText: 'XXXX XXXX XXXX XXXX',
+                ),
+                expiryDateDecoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Expired Date',
+                  hintText: 'XX/XX',
+                ),
+                cvvCodeDecoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'CVV',
+                  hintText: 'XXX',
+                ),
+                cardHolderDecoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Card Holder',
+                ),
+                cardNumberTextStyle: TextStyle(fontSize: 14, color: Colors.black),
+                cardHolderTextStyle: TextStyle(fontSize: 14, color: Colors.black),
+                expiryDateTextStyle: TextStyle(fontSize: 14, color: Colors.black),
+                cvvCodeTextStyle: TextStyle(fontSize: 14, color: Colors.black),
               ),
-              cvvCodeDecoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'CVV',
-                hintText: 'XXX',
-              ),
-              cardHolderDecoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Card Holder',
-              ),
-              cardNumberTextStyle: TextStyle(fontSize: 14, color: Colors.black),
-              cardHolderTextStyle: TextStyle(fontSize: 14, color: Colors.black),
-              expiryDateTextStyle: TextStyle(fontSize: 14, color: Colors.black),
-              cvvCodeTextStyle: TextStyle(fontSize: 14, color: Colors.black),
             ),
           ),
         ],
