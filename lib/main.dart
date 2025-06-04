@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:temple_on_wheel/screens/main_screen.dart';
+import 'package:temple_on_wheel/routers/router.dart';
 
 void main() {
   debugPaintSizeEnabled = false;
@@ -12,9 +12,9 @@ class TempleApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: MainScreen()
+      routerConfig: router,
     );
   }
 }
