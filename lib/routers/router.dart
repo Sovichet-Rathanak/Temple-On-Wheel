@@ -5,10 +5,37 @@ import 'package:temple_on_wheel/screens/e_station_screen.dart';
 import 'package:temple_on_wheel/screens/history_screen.dart';
 import 'package:temple_on_wheel/screens/home_screen.dart';
 import 'package:temple_on_wheel/screens/reservation_screen.dart';
+import 'package:temple_on_wheel/screens/Authen_Pages/landing_screen.dart';
+import 'package:temple_on_wheel/screens/Authen_Pages/onboarding_screen.dart';
+import 'package:temple_on_wheel/screens/Authen_Pages/signIn_screen.dart';
+import 'package:temple_on_wheel/screens/Authen_Pages/signUp_screen.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: '/home',
+  initialLocation: '/landing', // Changed to start with landing page
   routes: [
+    // Authentication routes (outside of shell)
+    GoRoute(
+      path: '/landing',
+      name: 'landing',
+      builder: (context, state) => const LandingScreen(),
+    ),
+    GoRoute(
+      path: '/onboarding',
+      name: 'onboarding',
+      builder: (context, state) => const OnboardingScreen(),
+    ),
+    GoRoute(
+      path: '/signin',
+      name: 'signin',
+      builder: (context, state) => const SignInScreen(),
+    ),
+    GoRoute(
+      path: '/signup',
+      name: 'signup',
+      builder: (context, state) => const SignUpScreen(),
+    ),
+    
+    // Main app routes (with shell)
     StatefulShellRoute.indexedStack(
       builder:
           (context, state, navigationShell) =>
