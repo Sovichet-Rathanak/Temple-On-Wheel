@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:temple_on_wheel/constants/theme.dart';
 
 class ProductCard extends StatelessWidget {
@@ -110,8 +111,7 @@ class ProductCard extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      // TODO: Implement booking functionality
-                      print('Book Now pressed for $name');
+                      context.goNamed('detail');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: kMainThemeColor, // Using the theme color

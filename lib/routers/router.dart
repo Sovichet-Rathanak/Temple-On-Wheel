@@ -4,6 +4,7 @@ import 'package:temple_on_wheel/screens/Account/account_home.dart';
 import 'package:temple_on_wheel/screens/Account/general_screen.dart';
 import 'package:temple_on_wheel/screens/Account/payment_method_screen.dart';
 import 'package:temple_on_wheel/screens/Account/policy_screen.dart';
+import 'package:temple_on_wheel/screens/detail_screen.dart';
 import 'package:temple_on_wheel/screens/e_station_screen.dart';
 import 'package:temple_on_wheel/screens/history_screen.dart';
 import 'package:temple_on_wheel/screens/home_screen.dart';
@@ -37,7 +38,7 @@ final GoRouter router = GoRouter(
       name: 'signup',
       builder: (context, state) => const SignUpScreen(),
     ),
-    
+
     // Main app routes (with shell)
     StatefulShellRoute.indexedStack(
       builder:
@@ -51,7 +52,13 @@ final GoRouter router = GoRouter(
               path: '/home',
               name: 'home',
               builder: (context, state) => HomeScreen(),
-              routes: [], //use for nested route
+              routes: [
+                GoRoute(
+                  path: 'detail',
+                  name: 'detail',
+                  builder: (context, state) => DetailScreen(),
+                ),
+              ], //use for nested route
             ),
           ],
         ),
