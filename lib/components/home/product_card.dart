@@ -37,12 +37,11 @@ class ProductCard extends StatelessWidget {
         children: [
           // Product Image - Made bigger
           Container(
-            height: 250, // Increased height for bigger image display
+            height: 250,
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
               image: DecorationImage(
-                // TODO: Replace with your product image
                 image: AssetImage(imagePath),
                 fit: BoxFit.cover,
               ),
@@ -71,21 +70,22 @@ class ProductCard extends StatelessWidget {
                     Text(
                       rating.toString(),
                       style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Spacer(),
                     // Location on the right side
                     Row(
                       children: [
-                        const Icon(Icons.location_on, size: 16, color: Colors.grey),
+                        const Icon(Icons.location_on, size: 16, color: Colors.black),
                         const SizedBox(width: 4),
                         Text(
                           location,
                           style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[600],
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
@@ -98,8 +98,9 @@ class ProductCard extends StatelessWidget {
                 Text(
                   status,
                   style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[600],
+                    fontSize: 16,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold
                   ),
                 ),
                 
@@ -110,11 +111,10 @@ class ProductCard extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      // TODO: Implement booking functionality
                       print('Book Now pressed for $name');
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: kMainThemeColor, // Using the theme color
+                      backgroundColor: kMainThemeColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
