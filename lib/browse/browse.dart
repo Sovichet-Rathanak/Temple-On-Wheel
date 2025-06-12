@@ -8,8 +8,7 @@ class Browse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseLayout(
-      child: Scaffold(
+    return Scaffold(
         body: LayoutBuilder(
           builder: (context, constraints) {
             return SingleChildScrollView(
@@ -81,8 +80,7 @@ class Browse extends StatelessWidget {
             );
           },
         ),
-      ),
-    );
+      );
   }
 }
 
