@@ -15,19 +15,19 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
-          'Temple On Wheels',
+          'Temple\nOn Wheels',
+          softWrap: true,
           style: TextStyle(
             color: kMainThemeColor,
+            fontFamily: "ClimateCrisis",
             fontSize: 20,
-            fontWeight: FontWeight.bold,
           ),
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: CircleAvatar(
-              radius: 20,
-              // TODO: Replace with your profile image
+              radius: 26,
               backgroundImage: AssetImage('assets/images/profile.png'),
             ),
           ),
@@ -36,38 +36,32 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          // Updated Hero Banner with perfect fit background and adjusted hero position
           Container(
             height: 200,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
-              color: Colors.white, // Added white background
+              color: Colors.white,
             ),
             child: Stack(
-              clipBehavior: Clip.none, // Allow content to overflow
+              clipBehavior: Clip.none,
               children: [
-                // Background Angkor Wat image filling perfectly without cropping
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
                     image: const DecorationImage(
-                      // TODO: Replace with your Angkor Wat background image
                       image: AssetImage('assets/images/home/angkor_wat.png'),
                       fit:
                           BoxFit
-                              .contain, // Changed to contain to show full image without cropping
+                              .contain,
                     ),
                   ),
                 ),
-                // Removed gradient overlay completely
-                // Hero image (person) positioned lower to extend more outside
                 Positioned(
-                  right: -2, // Allow it to extend outside the box
-                  bottom: -70, // Moved much lower as requested
+                  right: -2,
+                  bottom: -70,
                   child: Container(
                     width: 180,
                     height: 240,
-                    // TODO: Replace with your hero person image
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/images/home/hero.png'),
@@ -83,7 +77,8 @@ class HomeScreen extends StatelessWidget {
                     'Explore Siem Reap',
                     style: TextStyle(
                       color:
-                          Colors.white, // Changed to kMainThemeColor since no gradient overlay
+                          Colors
+                              .white,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -93,7 +88,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 40), // Increased space from 24 to 40
+          const SizedBox(height: 40),
           // Transportation Mode Section with updated color
           Text(
             'Explore Our Mode of Transportation',
@@ -112,8 +107,7 @@ class HomeScreen extends StatelessWidget {
               Expanded(
                 child: TransportationCard(
                   title: 'Motorbike',
-                  color: const Color(0xFFE91E63),
-                  // TODO: Replace with your motorbike image
+                  color: const Color(0xFFDA00FF),
                   imagePath: 'assets/images/home/motobike.png',
                 ),
               ),
@@ -121,8 +115,7 @@ class HomeScreen extends StatelessWidget {
               Expanded(
                 child: TransportationCard(
                   title: 'Bike',
-                  color: const Color(0xFFFF4081),
-                  // TODO: Replace with your bike image
+                  color: const Color(0xFFFF3999),
                   imagePath: 'assets/images/home/bike.png',
                 ),
               ),
@@ -130,8 +123,7 @@ class HomeScreen extends StatelessWidget {
               Expanded(
                 child: TransportationCard(
                   title: 'Electric Bike',
-                  color: const Color(0xFF2196F3),
-                  // TODO: Replace with your electric bike image
+                  color: const Color(0xFF0037FF),
                   imagePath: 'assets/images/home/electric_bike.png',
                 ),
               ),
@@ -158,7 +150,6 @@ class HomeScreen extends StatelessWidget {
             rating: 4.7,
             status: 'Available For Pickup',
             location: 'Pub Street (1.5km away)',
-            // TODO: Replace with your TREK bike image
             imagePath: 'assets/images/home/bike1.png',
           ),
 
@@ -169,7 +160,6 @@ class HomeScreen extends StatelessWidget {
             rating: 4.7,
             status: 'Reserved Only',
             location: 'Preah Dak (1km away)',
-            // TODO: Replace with your EVO bike image
             imagePath: 'assets/images/home/bike2.png',
           ),
 
@@ -189,12 +179,13 @@ class HomeScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  // TODO: Navigate to articles list screen
                   print('See all articles pressed');
                 },
-                child: const Text(
+                child: Text(
                   'See all',
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(
+                    color: kMainThemeColor,
+                    fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -206,7 +197,6 @@ class HomeScreen extends StatelessWidget {
           ArticleCard(
             title:
                 'Survivors, sniffing dogs join anti-mine march at Cambodia\'s Angkor Wat',
-            // TODO: Replace with your article image
             imagePath: 'assets/images/home/article1.png',
           ),
 
@@ -215,7 +205,6 @@ class HomeScreen extends StatelessWidget {
           ArticleCard(
             title:
                 'Cycling in Angkor Wat: Essential Tips to Explore Angkor Wat by Bike',
-            // TODO: Replace with your article image
             imagePath: 'assets/images/home/article2.png',
           ),
         ],
@@ -224,7 +213,6 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// Updated Transportation Card Component with images positioned closer to border and larger text
 class TransportationCard extends StatelessWidget {
   final String title;
   final Color color;
