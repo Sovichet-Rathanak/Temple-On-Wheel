@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/home/article_card.dart';
 import '../components/home/product_card.dart';
 import 'package:temple_on_wheel/constants/theme.dart';
+import 'package:temple_on_wheel/screens/detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
