@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:temple_on_wheel/main.dart';
+import 'package:go_router/go_router.dart';
+import 'package:temple_on_wheel/constants/theme.dart';
 
 class Browse extends StatelessWidget {
   final List data;
@@ -9,78 +10,77 @@ class Browse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Color(0xFF144434),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            // leading: Text(""),
+            backgroundColor: kMainThemeColor,
+            centerTitle: false,
+            expandedHeight: 100,
+            floating: true,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: true,
+              background: Container(color: kMainThemeColor),
+              title: Text(
+                "Temple On Wheels",
+                style: TextStyle(
+                  fontFamily: "ClimateCrisis",
+                  color: kSecondaryThemeColor,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 10),
+                        Row(
                           children: [
-                            // Row(
-                            //   children: [
-                            //     Icon(
-                            //       Icons.arrow_back,
-                            //       color: Colors.black,
-                            //       size: 20,
-                            //     ),
-                            //     SizedBox(width: 5),
-                            //     Text(
-                            //       'Back',
-                            //       style: TextStyle(
-                            //         color: Colors.black,
-                            //         fontSize: 16,
-                            //       ),
-                            //     ),
-                            //   ],
-                            // ),
-                            SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Text(
-                                  'Filter By',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                SizedBox(width: 5),
-                                Icon(
-                                  Icons.arrow_drop_down_sharp,
-                                  color: Colors.black,
-                                  size: 20,
-                                ),
-                              ],
+                            Text(
+                              'Filter By',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            Icon(
+                              Icons.arrow_drop_down_sharp,
+                              color: Colors.black,
+                              size: 20,
                             ),
                           ],
                         ),
-                      ),
-
-                      SizedBox(height: 10),
-
-                      Column(
-                        children: List.generate(
-                          data.length,
-                          (index) => ItemBox(imagePath: data[index]),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+
+                  SizedBox(height: 10),
+
+                  Column(
+                    children: List.generate(
+                      data.length,
+                      (index) => ItemBox(imagePath: data[index]),
+                    ),
+                  ),
+                ],
               ),
-            );
-          },
-        ),
-      );
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -148,11 +148,13 @@ class ItemBox extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF144434),
                       padding: EdgeInsets.symmetric(
-                        horizontal: 30,
+                        horizontal: 20,
                         vertical: 10,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      context.goNamed('detail');
+                    },
                     child: Text(
                       'Book Now',
                       style: TextStyle(color: Colors.white, fontSize: 12),

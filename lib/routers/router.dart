@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:temple_on_wheel/browse/browse.dart';
 import 'package:temple_on_wheel/layout/primary_layout.dart';
 import 'package:temple_on_wheel/screens/Account/account_home.dart';
 import 'package:temple_on_wheel/screens/Account/general_screen.dart';
@@ -13,6 +14,32 @@ import 'package:temple_on_wheel/screens/Authen_Pages/landing_screen.dart';
 import 'package:temple_on_wheel/screens/Authen_Pages/onboarding_screen.dart';
 import 'package:temple_on_wheel/screens/Authen_Pages/signIn_screen.dart';
 import 'package:temple_on_wheel/screens/Authen_Pages/signUp_screen.dart';
+
+final List<String> motorbikes = [
+  'assets/motorbike1.png',
+  'assets/motorbike1.png',
+  'assets/motorbike2.png',
+  'assets/motorbike2.png',
+  'assets/motorbike3.png',
+  'assets/motorbike3.png',
+  'assets/motorbike1.png',
+];
+
+final List<String> bikecycles = [
+  'assets/bikecycle1.png',
+  'assets/bikecycle2.png',
+  'assets/bikecycle3.png',
+  'assets/bikecycle4.png',
+  'assets/bikecycle5.png',
+  'assets/bikecycle6.png',
+];
+
+final List<String> electricbikes = [
+  'assets/ebike1.png',
+  'assets/ebike1.png',
+  'assets/ebike1.png',
+  'assets/ebike1.png',
+];
 
 final GoRouter router = GoRouter(
   initialLocation: '/landing', // Changed to start with landing page
@@ -57,6 +84,18 @@ final GoRouter router = GoRouter(
                   path: 'detail',
                   name: 'detail',
                   builder: (context, state) => DetailScreen(),
+                ),
+                GoRoute(
+                  path: 'browse',
+                  name: 'browse',
+                  builder: (context, state) => Browse(data: motorbikes),
+                  routes: [
+                    GoRoute(
+                      path: 'detail',
+                      name: 'detail',
+                      builder: (context, state) => DetailScreen(),
+                    ),
+                  ],
                 ),
               ], //use for nested route
             ),

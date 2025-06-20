@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../components/home/article_card.dart';
 import '../components/home/product_card.dart';
 import 'package:temple_on_wheel/constants/theme.dart';
@@ -50,9 +51,7 @@ class HomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(40),
                     image: const DecorationImage(
                       image: AssetImage('assets/images/home/angkor_wat.png'),
-                      fit:
-                          BoxFit
-                              .contain,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
@@ -76,9 +75,7 @@ class HomeScreen extends StatelessWidget {
                   child: Text(
                     'Explore Siem Reap',
                     style: TextStyle(
-                      color:
-                          Colors
-                              .white,
+                      color: Colors.white,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -89,14 +86,31 @@ class HomeScreen extends StatelessWidget {
           ),
 
           const SizedBox(height: 40),
+
           // Transportation Mode Section with updated color
-          Text(
-            'Explore Our Mode of Transportation',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: kMainThemeColor,
-            ),
+          Row(
+            children: [
+              Text(
+                'Explore Our Mode of Transportation',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: kMainThemeColor,
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  context.goNamed('browse');
+                },
+                child: Text(
+                  'See all',
+                  style: TextStyle(
+                    color: kMainThemeColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
 
           const SizedBox(height: 16),
@@ -185,7 +199,8 @@ class HomeScreen extends StatelessWidget {
                   'See all',
                   style: TextStyle(
                     color: kMainThemeColor,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
