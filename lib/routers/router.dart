@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:temple_on_wheel/browse/browse.dart';
+import 'package:temple_on_wheel/confirm_booking/confirm_booking.dart';
 import 'package:temple_on_wheel/layout/primary_layout.dart';
 import 'package:temple_on_wheel/screens/Account/account_home.dart';
 import 'package:temple_on_wheel/screens/Account/general_screen.dart';
@@ -92,7 +93,7 @@ final GoRouter router = GoRouter(
                   routes: [
                     GoRoute(
                       path: 'detail',
-                      name: 'detail',
+                      name: 'detail1',
                       builder: (context, state) => DetailScreen(),
                     ),
                   ],
@@ -120,7 +121,7 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: '/station',
               name: 'station',
-              builder: (context, state) => StationScreen(),
+              builder: (context, state) => ConfirmBooking(),
               routes: [], //use for nested route
             ),
           ],
