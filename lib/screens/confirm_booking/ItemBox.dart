@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:temple_on_wheel/constants/theme.dart';
 
-var num = 1;
-
 class ItemBox extends StatelessWidget {
   final String imagePath;
 
@@ -19,18 +17,18 @@ class ItemBox extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                SizedBox(width: 10),
+            // Row(
+            //   children: [
+            //     SizedBox(width: 10),
 
-                Icon(Icons.arrow_back, color: Colors.black, size: 20),
-                SizedBox(width: 5),
-                Text(
-                  'Back',
-                  style: TextStyle(color: Colors.black, fontSize: 16),
-                ),
-              ],
-            ),
+            //     Icon(Icons.arrow_back, color: Colors.black, size: 20),
+            //     SizedBox(width: 5),
+            //     Text(
+            //       'Back',
+            //       style: TextStyle(color: Colors.black, fontSize: 16),
+            //     ),
+            //   ],
+            // ),
             SizedBox(height: 10),
 
             Text(
@@ -78,30 +76,6 @@ class ItemBox extends StatelessWidget {
                 SizedBox(height: 10),
 
                 Button(),
-                // TextButton(
-                //   style: TextButton.styleFrom(
-                //     backgroundColor: kMainThemeColor,
-                //     padding: EdgeInsets.fromLTRB(10, 4, 10, 4),
-                //   ),
-                //   onPressed: () {
-                //     num += 1;
-                //   },
-                //   child: Row(
-                //     children: [
-                //       Icon(
-                //         Icons.restore_from_trash_outlined,
-                //         color: Colors.white,
-                //       ),
-                //       SizedBox(width: 10),
-                //       Text(
-                //         num.toString(),
-                //         style: TextStyle(color: Colors.white, fontSize: 16),
-                //       ),
-                //       SizedBox(width: 10),
-                //       Icon(Icons.add, color: Colors.white),
-                //     ],
-                //   ),
-                // ),
               ],
             ),
 
@@ -121,7 +95,7 @@ class ItemBox extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      context.goNamed('detail');
+                      context.goNamed('qr_code');
                     },
                     child: Text(
                       'Checkout',
@@ -164,7 +138,7 @@ class ItemBox extends StatelessWidget {
                 backgroundColor: WidgetStateProperty.all(kMainThemeColor),
               ),
               onPressed: () {
-                print("pay on pickup");
+                context.goNamed('qr_code');
               },
               child: Text(
                 'Pay on Pickup',
@@ -190,26 +164,50 @@ class Button extends StatefulWidget {
 }
 
 class _ButtonState extends State<Button> {
+  int num = 1;
+
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        backgroundColor: kMainThemeColor,
-        padding: EdgeInsets.fromLTRB(10, 4, 10, 4),
+    return Container(
+      decoration: BoxDecoration(
+        color: kMainThemeColor,
+        borderRadius: BorderRadius.circular(25),
       ),
-      onPressed: () {
-        num += 1;
-      },
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Icon(Icons.restore_from_trash_outlined, color: Colors.white),
-          SizedBox(width: 10),
+          IconButton(
+            iconSize: 18,
+            padding: EdgeInsets.all(4),
+            constraints: BoxConstraints.tight(Size(30, 30)),
+            onPressed: () {
+              setState(() {
+                if (num > 1) num -= 1;
+              });
+            },
+            icon: Icon(Icons.remove, color: Colors.white, size: 12),
+          ),
+
           Text(
             num.toString(),
-            style: TextStyle(color: Colors.white, fontSize: 16),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          SizedBox(width: 10),
-          Icon(Icons.add, color: Colors.white),
+
+          IconButton(
+            iconSize: 18,
+            padding: EdgeInsets.all(4),
+            constraints: BoxConstraints.tight(Size(30, 30)),
+            onPressed: () {
+              setState(() {
+                num += 1;
+              });
+            },
+            icon: Icon(Icons.add, color: Colors.white, size: 12),
+          ),
         ],
       ),
     );

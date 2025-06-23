@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:go_router/go_router.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key});
@@ -195,8 +196,10 @@ class _DetailScreenState extends State<DetailScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          onPressed: () {},
-                          child: const Text(
+                          onPressed: () {
+                            context.goNamed('confirm_booking');
+                          },
+                          child: Text(
                             'Book Now',
                             style: TextStyle(color: Colors.white, fontSize: 16),
                           ),

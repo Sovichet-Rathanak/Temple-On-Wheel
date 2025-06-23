@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:temple_on_wheel/confirm_booking/ItemBox.dart';
+import 'package:temple_on_wheel/screens/confirm_booking/ItemBox.dart';
 import 'package:temple_on_wheel/constants/theme.dart';
 
 final List<String> motorbikes = [

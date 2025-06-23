@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
-import 'package:temple_on_wheel/browse/browse.dart';
-import 'package:temple_on_wheel/confirm_booking/confirm_booking.dart';
+import 'package:temple_on_wheel/screens/browse/browse.dart';
+import 'package:temple_on_wheel/screens/checkout/checkout.dart';
+import 'package:temple_on_wheel/screens/checkout/qr_code.dart';
+import 'package:temple_on_wheel/screens/confirm_booking/confirm_booking.dart';
 import 'package:temple_on_wheel/layout/primary_layout.dart';
 import 'package:temple_on_wheel/screens/Account/account_home.dart';
 import 'package:temple_on_wheel/screens/Account/general_screen.dart';
@@ -95,6 +97,27 @@ final GoRouter router = GoRouter(
                       path: 'detail',
                       name: 'detail1',
                       builder: (context, state) => DetailScreen(),
+                      routes: [
+                        GoRoute(
+                          path: '/confirm_booking',
+                          name: 'confirm_booking',
+                          builder: (context, state) => ConfirmBooking(),
+                          routes: [
+                            GoRoute(
+                              path: '/qr_code',
+                              name: 'qr_code',
+                              builder: (context, state) => QRCode(),
+                              routes: [
+                                GoRoute(
+                                  path: '/checkout',
+                                  name: 'checkout',
+                                  builder: (context, state) => Checkout(),
+                                ),
+                              ], //u
+                            ),
+                          ], //use for nested route
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -121,7 +144,7 @@ final GoRouter router = GoRouter(
             GoRoute(
               path: '/station',
               name: 'station',
-              builder: (context, state) => ConfirmBooking(),
+              builder: (context, state) => StationScreen(),
               routes: [], //use for nested route
             ),
           ],
