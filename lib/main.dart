@@ -8,7 +8,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize Firebase
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (error) {
+    if (error.toString().contains('duplicate-app')) {
+      print('Firebase already initialised');
+    } else {
+      print(error);
+    }
+  }
 
   debugPaintSizeEnabled = false;
   runApp(const TempleApp());

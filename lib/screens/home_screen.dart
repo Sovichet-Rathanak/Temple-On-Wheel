@@ -1,3 +1,6 @@
+import 'dart:ffi';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:temple_on_wheel/screens/confirm_booking/confirm_booking.dart';
@@ -31,6 +34,12 @@ final List<String> electricbikes = [
   'assets/ebike1.png',
   'assets/ebike1.png',
 ];
+
+final List<String> allVehicles = [
+  ...electricbikes,
+  ...motorbikes,
+  ...bikecycles,
+]..shuffle(Random());
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -188,7 +197,7 @@ class HomeScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  context.goNamed('browse');
+                  GoRouter.of(context).go('/home/browse', extra: allVehicles);
                 },
                 child: Text(
                   'See all',

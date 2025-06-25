@@ -66,7 +66,7 @@ final GoRouter router = GoRouter(
                   path: 'browse',
                   name: 'browse',
                   builder: (context, state) {
-                    final items = state.extra as List<String>;
+                    final items = state.extra as List<String>? ?? [];
                     return Browse(data: items);
                   },
                   routes: [
