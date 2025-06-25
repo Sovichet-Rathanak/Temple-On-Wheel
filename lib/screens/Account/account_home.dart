@@ -175,7 +175,7 @@ class AccountScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 25),
                 Text(
-                  "Welcome!",
+                  "Welcome Schlawg!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.w900,

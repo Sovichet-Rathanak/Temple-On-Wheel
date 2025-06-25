@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:temple_on_wheel/components/home/carousel.dart';
 import '../components/home/article_card.dart';
 import '../components/home/product_card.dart';
 import 'package:temple_on_wheel/constants/theme.dart';
@@ -40,12 +41,16 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
-          'Temple\nOn Wheels',
-          style: TextStyle(
-            color: kMainThemeColor,
-            fontFamily: "ClimateCrisis",
-            fontSize: 20,
+        scrolledUnderElevation: 0,
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: Text(
+            'Temple\nOn Wheels',
+            style: TextStyle(
+              color: kMainThemeColor,
+              fontFamily: "ClimateCrisis",
+              fontSize: 20,
+            ),
           ),
         ),
         actions: [
@@ -61,51 +66,8 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          Container(
-            height: 200,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              image: const DecorationImage(
-                image: AssetImage('assets/images/home/angkor_wat.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 20,
-                  top: 20,
-                  child: Text(
-                    'Explore Siem Reap',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.bold,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.5),
-                          offset: Offset(2, 2),
-                          blurRadius: 4,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: -2,
-                  bottom: -70,
-                  child: Image.asset(
-                    'assets/images/home/hero.png',
-                    width: 180,
-                    height: 240,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
+          const SizedBox(height: 20),
+          Carousel(),
           const SizedBox(height: 40),
 
           Text(
@@ -199,8 +161,11 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionHeader(BuildContext context,
-      {required String title, required VoidCallback onSeeAll}) {
+  Widget _buildSectionHeader(
+    BuildContext context, {
+    required String title,
+    required VoidCallback onSeeAll,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -208,6 +173,7 @@ class HomeScreen extends StatelessWidget {
           title,
           style: TextStyle(
             fontSize: 18,
+            fontFamily: "Inter",
             fontWeight: FontWeight.bold,
             color: kMainThemeColor,
           ),
