@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:temple_on_wheel/screens/confirm_booking/confirm_booking.dart';
 import '../components/home/article_card.dart';
 import '../components/home/product_card.dart';
 import 'package:temple_on_wheel/constants/theme.dart';
-import 'package:temple_on_wheel/screens/detail_screen.dart';
 
 final List<String> motorbikes = [
   'assets/motorbike1.png',
@@ -44,7 +42,6 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         title: Text(
           'Temple\nOn Wheels',
-          softWrap: true,
           style: TextStyle(
             color: kMainThemeColor,
             fontFamily: "ClimateCrisis",
@@ -67,45 +64,42 @@ class HomeScreen extends StatelessWidget {
           Container(
             height: 200,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(40),
-              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              image: const DecorationImage(
+                image: AssetImage('assets/images/home/angkor_wat.png'),
+                fit: BoxFit.cover,
+              ),
             ),
             child: Stack(
-              clipBehavior: Clip.none,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    image: const DecorationImage(
-                      image: AssetImage('assets/images/home/angkor_wat.png'),
-                      fit: BoxFit.contain,
+                Positioned(
+                  left: 20,
+                  top: 20,
+                  child: Text(
+                    'Explore Siem Reap',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black.withOpacity(0.5),
+                          offset: Offset(2, 2),
+                          blurRadius: 4,
+                        )
+                      ],
                     ),
                   ),
                 ),
                 Positioned(
                   right: -2,
                   bottom: -70,
-                  child: Container(
+                  child: Image.asset(
+                    'assets/images/home/hero.png',
                     width: 180,
                     height: 240,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/home/hero.png'),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 20,
-                  top: 30,
-                  child: Text(
-                    'Explore Siem Reap',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    fit: BoxFit.contain,
                   ),
                 ),
               ],
@@ -114,11 +108,11 @@ class HomeScreen extends StatelessWidget {
 
           const SizedBox(height: 40),
 
-          // Transportation Mode Section with updated color
           Text(
             'Explore Our Mode of Transportation',
             style: TextStyle(
               fontSize: 18,
+              fontFamily: "Inter",
               fontWeight: FontWeight.bold,
               color: kMainThemeColor,
             ),
@@ -126,47 +120,32 @@ class HomeScreen extends StatelessWidget {
 
           const SizedBox(height: 16),
 
-          // Updated taller transportation cards with bigger images
           Row(
             children: [
               Expanded(
-                child: TextButton(
-                  onPressed: () {
-                    GoRouter.of(context).go('/home/browse', extra: motorbikes);
-                  },
-                  child: TransportationCard(
-                    title: 'Motorbike',
-                    color: const Color(0xFFDA00FF),
-                    imagePath: 'assets/images/home/motobike.png',
-                  ),
+                child: TransportationCard(
+                  title: 'Motorbike',
+                  color: const Color(0xFFDA00FF),
+                  imagePath: 'assets/images/home/motobike.png',
+                  onTap: () => context.go('/home/browse', extra: motorbikes),
                 ),
               ),
-              const SizedBox(width: 14),
+              const SizedBox(width: 10),
               Expanded(
-                child: TextButton(
-                  onPressed: () {
-                    GoRouter.of(context).go('/home/browse', extra: bikecycles);
-                  },
-                  child: TransportationCard(
-                    title: 'Bike',
-                    color: const Color(0xFFFF3999),
-                    imagePath: 'assets/images/home/bike.png',
-                  ),
+                child: TransportationCard(
+                  title: 'Bike',
+                  color: const Color(0xFFFF3999),
+                  imagePath: 'assets/images/home/bike.png',
+                  onTap: () => context.go('/home/browse', extra: bikecycles),
                 ),
               ),
-              const SizedBox(width: 14),
+              const SizedBox(width: 10),
               Expanded(
-                child: TextButton(
-                  onPressed: () {
-                    GoRouter.of(
-                      context,
-                    ).go('/home/browse', extra: electricbikes);
-                  },
-                  child: TransportationCard(
-                    title: 'Electric Bike',
-                    color: const Color(0xFF0037FF),
-                    imagePath: 'assets/images/home/electric_bike.png',
-                  ),
+                child: TransportationCard(
+                  title: 'Electric Bike',
+                  color: const Color(0xFF0037FF),
+                  imagePath: 'assets/images/home/electric_bike.png',
+                  onTap: () => context.go('/home/browse', extra: electricbikes),
                 ),
               ),
             ],
@@ -174,47 +153,21 @@ class HomeScreen extends StatelessWidget {
 
           const SizedBox(height: 24),
 
-          // Trending Transportation Section
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Trending Transportation',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: kMainThemeColor,
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  context.goNamed('browse');
-                },
-                child: Text(
-                  'See all',
-                  style: TextStyle(
-                    color: kMainThemeColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
+          _buildSectionHeader(
+            context,
+            title: 'Trending Transportation',
+            onSeeAll: () => context.goNamed('browse'),
           ),
-
           const SizedBox(height: 16),
-
-          // Product Cards
-          ProductCard(
+          const ProductCard(
             name: 'TREK F1000',
             rating: 4.7,
             status: 'Available For Pickup',
             location: 'Pub Street (1.5km away)',
             imagePath: 'assets/images/home/bike1.png',
           ),
-
           const SizedBox(height: 16),
-
-          ProductCard(
+          const ProductCard(
             name: 'EVO S300',
             rating: 4.7,
             status: 'Reserved Only',
@@ -224,45 +177,19 @@ class HomeScreen extends StatelessWidget {
 
           const SizedBox(height: 24),
 
-          // Articles Section
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Articles To Read',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: kMainThemeColor,
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  print('See all articles pressed');
-                },
-                child: Text(
-                  'See all',
-                  style: TextStyle(
-                    color: kMainThemeColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
+          _buildSectionHeader(
+            context,
+            title: 'Articles To Read',
+            onSeeAll: () {},
           ),
-
           const SizedBox(height: 16),
-
-          // Article Cards
-          ArticleCard(
+          const ArticleCard(
             title:
                 'Survivors, sniffing dogs join anti-mine march at Cambodia\'s Angkor Wat',
             imagePath: 'assets/images/home/article1.png',
           ),
-
           const SizedBox(height: 16),
-
-          ArticleCard(
+          const ArticleCard(
             title:
                 'Cycling in Angkor Wat: Essential Tips to Explore Angkor Wat by Bike',
             imagePath: 'assets/images/home/article2.png',
@@ -271,60 +198,87 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildSectionHeader(BuildContext context,
+      {required String title, required VoidCallback onSeeAll}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: kMainThemeColor,
+          ),
+        ),
+        TextButton(
+          onPressed: onSeeAll,
+          child: Text(
+            'See all',
+            style: TextStyle(
+              color: kMainThemeColor,
+              fontFamily: "Inter",
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class TransportationCard extends StatelessWidget {
   final String title;
   final Color color;
   final String imagePath;
+  final VoidCallback onTap;
 
   const TransportationCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.color,
     required this.imagePath,
-  }) : super(key: key);
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 160, // Taller card
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Stack(
-        children: [
-          // Title positioned at top left with larger font size
-          Positioned(
-            top: 16,
-            left: 16,
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18, // Increased from 14 to 18
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          // Image positioned exactly at bottom right corner
-          Positioned(
-            bottom: 0, // Positioned at the very bottom
-            right: 0, // Positioned at the very right
-            child: Container(
-              width: 100, // Slightly larger image
-              height: 100, // Slightly larger image
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  // TODO: Replace with your transportation mode image
-                  image: AssetImage(imagePath),
-                  fit: BoxFit.contain,
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        height: 160,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Stack(
+          children: [
+            Positioned(
+              top: 16,
+              left: 16,
+              child: Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-          ),
-        ],
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Image.asset(
+                imagePath,
+                width: 100,
+                height: 100,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

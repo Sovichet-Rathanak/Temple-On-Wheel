@@ -8,13 +8,21 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize Firebase
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  try{
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  }catch(error){
+    if(error.toString().contains('duplicate-app')){
+      print('Firebase already initiliased');
+    }else{
+      print(error);
+    }
+  }
 
-  debugPaintSizeEnabled = false;
+  debugPaintSizeEnabled = false; 
   runApp(const TempleApp());
 }
 
-class TempleApp extends StatelessWidget {
+  class TempleApp extends StatelessWidget {
   const TempleApp({super.key});
 
   @override

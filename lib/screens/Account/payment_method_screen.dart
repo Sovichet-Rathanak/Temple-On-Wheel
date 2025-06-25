@@ -36,6 +36,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
     const double iconSize = 35;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: SettingBaseAppBar(title: "Payment", appBar: AppBar()),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -48,7 +49,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 fontFamily: "Inter",
                 fontWeight: FontWeight.w600,
                 color: Colors.black,
-                fontSize: 24,
+                fontSize: 20,
               ),
             ),
           ),
@@ -61,7 +62,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 fontFamily: "Inter",
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
-                fontSize: 18,
+                fontSize: 16,
               ),
             ),
           ),
@@ -105,7 +106,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 16,
                       ),
                       textAlign: TextAlign.start,
                     ),
@@ -209,7 +210,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                         color: kSecondaryThemeColor,
                         fontFamily: "Inter",
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 16,
                       ),
                     ),
                   ),

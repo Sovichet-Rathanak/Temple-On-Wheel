@@ -57,10 +57,11 @@ class ArticleCard extends StatelessWidget {
               ),
               child: Text(
                 title,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: kSecondaryThemeColor,
+                  fontFamily: "Inter",
                   fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                 ),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
