@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "144028459694",
+    "project_id": "temple-on-wheel",
+    "storage_bucket": "temple-on-wheel.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144028459694:android:df0386302b08f0ce33c33f",
+        "android_client_info": {
+          "package_name": "com.example.temple_on_wheel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnXyzgpIP00CV9L0gKmrWMWkILDPjf7nM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
