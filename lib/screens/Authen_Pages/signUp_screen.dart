@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:temple_on_wheel/services/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -11,16 +12,16 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  
+  final _authService = AuthService();
+
   bool _isLoading = false;
+  String? _errorMessage;
 
   @override
   void dispose() {
     _emailController.dispose();
-    _usernameController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
@@ -32,16 +33,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
     if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
       return 'Please enter a valid email';
-    }
-    return null;
-  }
-
-  String? _validateUsername(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Username is required';
-    }
-    if (value.length < 3) {
-      return 'Username must be at least 3 characters';
     }
     return null;
   }
@@ -70,18 +61,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
+        _errorMessage = null;
       });
 
-      // Simulate API call
-      await Future.delayed(const Duration(seconds: 2));
+      try {
+        await _authService.registerWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+        );
 
-      setState(() {
-        _isLoading = false;
-      });
+        if (mounted) {
+          // Show success message
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Account created successfully!'),
+              backgroundColor: Colors.green,
+            ),
+          );
 
-      // Navigate to home after successful sign up
-      if (mounted) {
-        context.go('/home');
+          // Navigate to home
+          context.go('/home');
+        }
+      } catch (e) {
+        setState(() {
+          _errorMessage = e.toString();
+        });
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
   }
@@ -99,7 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                
+
                 // Back button
                 GestureDetector(
                   onTap: () {
@@ -119,10 +127,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                 ),
-                
+
                 const SizedBox(height: 40),
-                
-                // Illustration - clickable but no navigation
+
+                // Illustration
                 Center(
                   child: GestureDetector(
                     onTap: () {
@@ -140,9 +148,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 40),
-                
+
+                // Error message
+                if (_errorMessage != null)
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    margin: const EdgeInsets.only(bottom: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.red.shade50,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.red.shade200),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.error_outline, color: Colors.red.shade600),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            _errorMessage!,
+                            style: TextStyle(color: Colors.red.shade600),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                 // Email field
                 const Text(
                   'Email',
@@ -178,46 +210,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 20),
-                
-                // Username field
-                const Text(
-                  'Username',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: _usernameController,
-                  validator: _validateUsername,
-                  decoration: InputDecoration(
-                    hintText: 'Username',
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Colors.grey),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Colors.grey),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Color(0xFF2D5A3D)),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
-                    ),
-                  ),
-                ),
-                
-                const SizedBox(height: 20),
-                
+
                 // Password field
                 const Text(
                   'Password',
@@ -253,9 +248,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 20),
-                
+
                 // Confirm Password field
                 const Text(
                   'Confirm Password',
@@ -291,10 +286,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 40),
-                
-                // Confirm Button
+
+                // Sign Up Button
                 SizedBox(
                   width: double.infinity,
                   height: 56,
@@ -308,25 +303,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       elevation: 0,
                     ),
-                    child: _isLoading
-                        ? const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeWidth: 2,
+                    child:
+                        _isLoading
+                            ? const SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              ),
+                            )
+                            : const Text(
+                              'Create Account',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          )
-                        : const Text(
-                            'Confirm',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 40),
               ],
             ),

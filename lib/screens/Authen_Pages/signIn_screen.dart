@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:temple_on_wheel/services/auth_service.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -11,15 +12,15 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  
+  final _authService = AuthService();
+
   bool _isLoading = false;
+  String? _errorMessage;
 
   @override
   void dispose() {
     _emailController.dispose();
-    _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -30,13 +31,6 @@ class _SignInScreenState extends State<SignInScreen> {
     }
     if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
       return 'Please enter a valid email';
-    }
-    return null;
-  }
-
-  String? _validateUsername(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Username is required';
     }
     return null;
   }
@@ -52,27 +46,36 @@ class _SignInScreenState extends State<SignInScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
+        _errorMessage = null;
       });
 
-      // Simulate API call
-      await Future.delayed(const Duration(seconds: 2));
+      try {
+        await _authService.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+        );
 
-      setState(() {
-        _isLoading = false;
-      });
-
-      // Navigate to home after successful sign in
-      if (mounted) {
-        context.go('/home');
+        if (mounted) {
+          context.go('/home');
+        }
+      } catch (e) {
+        setState(() {
+          _errorMessage = e.toString();
+        });
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
   }
 
-  void _handleForgotPassword() {
-    showDialog(
+  Future<void> _handleForgotPassword() async {
+    final emailController = TextEditingController();
+
+    final result = await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
-        final emailController = TextEditingController();
         return AlertDialog(
           title: const Text('Reset Password'),
           content: Column(
@@ -92,27 +95,40 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
           actions: [
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: () => Navigator.of(context).pop(false),
               child: const Text('Cancel'),
             ),
             ElevatedButton(
-              onPressed: () {
-                // Handle password reset logic here
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Password reset link sent to your email!'),
-                  ),
-                );
-              },
+              onPressed: () => Navigator.of(context).pop(true),
               child: const Text('Send Reset Link'),
             ),
           ],
         );
       },
     );
+
+    if (result == true && emailController.text.isNotEmpty) {
+      try {
+        await _authService.sendPasswordResetEmail(
+          email: emailController.text.trim(),
+        );
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Password reset link sent to your email!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(e.toString()), backgroundColor: Colors.red),
+          );
+        }
+      }
+    }
   }
 
   @override
@@ -128,7 +144,7 @@ class _SignInScreenState extends State<SignInScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                
+
                 // Back button
                 GestureDetector(
                   onTap: () {
@@ -148,10 +164,10 @@ class _SignInScreenState extends State<SignInScreen> {
                     ],
                   ),
                 ),
-                
+
                 const SizedBox(height: 40),
-                
-                // Illustration - clickable but no navigation
+
+                // Illustration
                 Center(
                   child: Container(
                     width: 280,
@@ -168,9 +184,33 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 40),
-                
+
+                // Error message
+                if (_errorMessage != null)
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    margin: const EdgeInsets.only(bottom: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.red.shade50,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.red.shade200),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.error_outline, color: Colors.red.shade600),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            _errorMessage!,
+                            style: TextStyle(color: Colors.red.shade600),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                 // Email field
                 const Text(
                   'Email',
@@ -206,46 +246,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 20),
-                
-                // Username field
-                const Text(
-                  'Username',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: _usernameController,
-                  validator: _validateUsername,
-                  decoration: InputDecoration(
-                    hintText: 'Username',
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Colors.grey),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Colors.grey),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Color(0xFF2D5A3D)),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
-                    ),
-                  ),
-                ),
-                
-                const SizedBox(height: 20),
-                
+
                 // Password field
                 const Text(
                   'Password',
@@ -281,9 +284,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 16),
-                
+
                 // Forgot Password
                 Align(
                   alignment: Alignment.centerLeft,
@@ -299,10 +302,10 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 40),
-                
-                // Confirm Button
+
+                // Sign In Button
                 SizedBox(
                   width: double.infinity,
                   height: 56,
@@ -316,25 +319,26 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       elevation: 0,
                     ),
-                    child: _isLoading
-                        ? const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeWidth: 2,
+                    child:
+                        _isLoading
+                            ? const SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              ),
+                            )
+                            : const Text(
+                              'Sign In',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          )
-                        : const Text(
-                            'Confirm',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 40),
               ],
             ),

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:temple_on_wheel/routers/router.dart';
+import 'package:temple_on_wheel/services/firebase_config.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   debugPaintSizeEnabled = false;
   runApp(const TempleApp());
 }
