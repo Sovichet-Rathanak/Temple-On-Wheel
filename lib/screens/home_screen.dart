@@ -1,9 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:temple_on_wheel/screens/confirm_booking/confirm_booking.dart';
 import '../components/home/article_card.dart';
 import '../components/home/product_card.dart';
 import 'package:temple_on_wheel/constants/theme.dart';
 import 'package:temple_on_wheel/screens/detail_screen.dart';
+
+final List<String> motorbikes = [
+  'assets/motorbike1.png',
+  'assets/motorbike1.png',
+  'assets/motorbike2.png',
+  'assets/motorbike2.png',
+  'assets/motorbike3.png',
+  'assets/motorbike3.png',
+  'assets/motorbike1.png',
+];
+
+final List<String> bikecycles = [
+  'assets/bikecycle1.png',
+  'assets/bikecycle2.png',
+  'assets/bikecycle3.png',
+  'assets/bikecycle4.png',
+  'assets/bikecycle5.png',
+  'assets/bikecycle6.png',
+];
+
+final List<String> electricbikes = [
+  'assets/ebike1.png',
+  'assets/ebike1.png',
+  'assets/ebike1.png',
+  'assets/ebike1.png',
+];
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -88,10 +115,71 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(height: 40),
 
           // Transportation Mode Section with updated color
+          Text(
+            'Explore Our Mode of Transportation',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: kMainThemeColor,
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          // Updated taller transportation cards with bigger images
           Row(
             children: [
+              Expanded(
+                child: TextButton(
+                  onPressed: () {
+                    GoRouter.of(context).go('/home/browse', extra: motorbikes);
+                  },
+                  child: TransportationCard(
+                    title: 'Motorbike',
+                    color: const Color(0xFFDA00FF),
+                    imagePath: 'assets/images/home/motobike.png',
+                  ),
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: TextButton(
+                  onPressed: () {
+                    GoRouter.of(context).go('/home/browse', extra: bikecycles);
+                  },
+                  child: TransportationCard(
+                    title: 'Bike',
+                    color: const Color(0xFFFF3999),
+                    imagePath: 'assets/images/home/bike.png',
+                  ),
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: TextButton(
+                  onPressed: () {
+                    GoRouter.of(
+                      context,
+                    ).go('/home/browse', extra: electricbikes);
+                  },
+                  child: TransportationCard(
+                    title: 'Electric Bike',
+                    color: const Color(0xFF0037FF),
+                    imagePath: 'assets/images/home/electric_bike.png',
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 24),
+
+          // Trending Transportation Section
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               Text(
-                'Explore Our Mode of Transportation',
+                'Trending Transportation',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -111,49 +199,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-
-          const SizedBox(height: 16),
-
-          // Updated taller transportation cards with bigger images
-          Row(
-            children: [
-              Expanded(
-                child: TransportationCard(
-                  title: 'Motorbike',
-                  color: const Color(0xFFDA00FF),
-                  imagePath: 'assets/images/home/motobike.png',
-                ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: TransportationCard(
-                  title: 'Bike',
-                  color: const Color(0xFFFF3999),
-                  imagePath: 'assets/images/home/bike.png',
-                ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: TransportationCard(
-                  title: 'Electric Bike',
-                  color: const Color(0xFF0037FF),
-                  imagePath: 'assets/images/home/electric_bike.png',
-                ),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 24),
-
-          // Trending Transportation Section
-          Text(
-            'Trending Transportation',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: kMainThemeColor,
-            ),
           ),
 
           const SizedBox(height: 16),

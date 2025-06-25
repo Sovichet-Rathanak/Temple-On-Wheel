@@ -173,42 +173,46 @@ class _ButtonState extends State<Button> {
         color: kMainThemeColor,
         borderRadius: BorderRadius.circular(25),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          IconButton(
-            iconSize: 18,
-            padding: EdgeInsets.all(4),
-            constraints: BoxConstraints.tight(Size(30, 30)),
-            onPressed: () {
-              setState(() {
-                if (num > 1) num -= 1;
-              });
-            },
-            icon: Icon(Icons.remove, color: Colors.white, size: 12),
-          ),
-
-          Text(
-            num.toString(),
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
+      height: 50,
+      child: SizedBox(
+        height: 10,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            IconButton(
+              iconSize: 18,
+              padding: EdgeInsets.all(4),
+              // constraints: BoxConstraints.tight(Size(30, 30)),
+              onPressed: () {
+                setState(() {
+                  if (num > 1) num -= 1;
+                });
+              },
+              icon: Icon(Icons.remove, color: Colors.white, size: 12),
             ),
-          ),
 
-          IconButton(
-            iconSize: 18,
-            padding: EdgeInsets.all(4),
-            constraints: BoxConstraints.tight(Size(30, 30)),
-            onPressed: () {
-              setState(() {
-                num += 1;
-              });
-            },
-            icon: Icon(Icons.add, color: Colors.white, size: 12),
-          ),
-        ],
+            Text(
+              num.toString(),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            IconButton(
+              iconSize: 18,
+              // padding: EdgeInsets.all(4),
+              // constraints: BoxConstraints.tight(Size(30, 30)),
+              onPressed: () {
+                setState(() {
+                  num += 1;
+                });
+              },
+              icon: Icon(Icons.add, color: Colors.white, size: 12),
+            ),
+          ],
+        ),
       ),
     );
   }

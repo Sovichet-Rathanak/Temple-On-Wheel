@@ -21,23 +21,23 @@ class ConfirmBooking extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            // leading: Text(""),
             backgroundColor: kMainThemeColor,
             centerTitle: false,
             expandedHeight: 100,
             floating: true,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true,
+              centerTitle: false,
               background: Container(color: kMainThemeColor),
               title: Text(
-                "Temple On Wheels",
+                "Temple \n On Wheels",
                 style: TextStyle(
                   fontFamily: "ClimateCrisis",
                   color: kSecondaryThemeColor,
                   fontSize: 15,
                 ),
               ),
+              titlePadding: EdgeInsets.only(left: 20, bottom: 20),
             ),
           ),
           SliverToBoxAdapter(child: ItemBox(imagePath: motorbikes[0])),

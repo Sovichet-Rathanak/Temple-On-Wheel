@@ -18,32 +18,6 @@ import 'package:temple_on_wheel/screens/Authen_Pages/onboarding_screen.dart';
 import 'package:temple_on_wheel/screens/Authen_Pages/signIn_screen.dart';
 import 'package:temple_on_wheel/screens/Authen_Pages/signUp_screen.dart';
 
-final List<String> motorbikes = [
-  'assets/motorbike1.png',
-  'assets/motorbike1.png',
-  'assets/motorbike2.png',
-  'assets/motorbike2.png',
-  'assets/motorbike3.png',
-  'assets/motorbike3.png',
-  'assets/motorbike1.png',
-];
-
-final List<String> bikecycles = [
-  'assets/bikecycle1.png',
-  'assets/bikecycle2.png',
-  'assets/bikecycle3.png',
-  'assets/bikecycle4.png',
-  'assets/bikecycle5.png',
-  'assets/bikecycle6.png',
-];
-
-final List<String> electricbikes = [
-  'assets/ebike1.png',
-  'assets/ebike1.png',
-  'assets/ebike1.png',
-  'assets/ebike1.png',
-];
-
 final GoRouter router = GoRouter(
   initialLocation: '/landing', // Changed to start with landing page
   routes: [
@@ -91,7 +65,10 @@ final GoRouter router = GoRouter(
                 GoRoute(
                   path: 'browse',
                   name: 'browse',
-                  builder: (context, state) => Browse(data: motorbikes),
+                  builder: (context, state) {
+                    final items = state.extra as List<String>;
+                    return Browse(data: items);
+                  },
                   routes: [
                     GoRoute(
                       path: 'detail',
@@ -99,17 +76,17 @@ final GoRouter router = GoRouter(
                       builder: (context, state) => DetailScreen(),
                       routes: [
                         GoRoute(
-                          path: '/confirm_booking',
+                          path: 'confirm_booking',
                           name: 'confirm_booking',
                           builder: (context, state) => ConfirmBooking(),
                           routes: [
                             GoRoute(
-                              path: '/qr_code',
+                              path: 'qr_code',
                               name: 'qr_code',
                               builder: (context, state) => QRCode(),
                               routes: [
                                 GoRoute(
-                                  path: '/checkout',
+                                  path: 'checkout',
                                   name: 'checkout',
                                   builder: (context, state) => Checkout(),
                                 ),
@@ -130,10 +107,23 @@ final GoRouter router = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: '/reservation',
-              name: 'reservation',
-              builder: (context, state) => ReservationScreen(),
-              routes: [], //use for nested route
+              path: '/confirm_booking',
+              name: 'confirm_booking1',
+              builder: (context, state) => ConfirmBooking(),
+              routes: [
+                GoRoute(
+                  path: 'qr_code',
+                  name: 'qr_code1',
+                  builder: (context, state) => QRCode(),
+                  routes: [
+                    GoRoute(
+                      path: 'checkout',
+                      name: 'checkout1',
+                      builder: (context, state) => Checkout(),
+                    ),
+                  ], //use for nested route
+                ),
+              ], //use for nested route
             ),
           ],
         ),
