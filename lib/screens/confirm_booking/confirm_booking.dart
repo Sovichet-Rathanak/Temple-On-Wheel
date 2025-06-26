@@ -25,12 +25,14 @@ class ConfirmBooking extends StatelessWidget {
             centerTitle: false,
             expandedHeight: 100,
             floating: true,
-            pinned: true,
+            pinned:
+                false, // Changed from true to false - This fixes the persistent app bar issue
+            snap: true, // Added for better UX
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: false,
               background: Container(color: kMainThemeColor),
               title: Text(
-                "Temple \n On Wheels",
+                "Temple\nOn Wheels",
                 style: TextStyle(
                   fontFamily: "ClimateCrisis",
                   color: kSecondaryThemeColor,

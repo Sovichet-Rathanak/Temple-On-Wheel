@@ -136,7 +136,15 @@ class HomeScreen extends StatelessWidget {
             location: 'Preah Dak (1km away)',
             imagePath: 'assets/images/home/bike2.png',
           ),
-
+          const SizedBox(height: 16),
+          const ProductCard(
+            name: 'EVO S300',
+            rating: 4.7,
+            status: 'Reserved Only',
+            location: 'Preah Dak (1km away)',
+            imagePath: 'assets/images/home/new_bike.jpg',
+          ),
+          
           const SizedBox(height: 24),
 
           _buildSectionHeader(

@@ -55,7 +55,6 @@ class _DetailScreenState extends State<DetailScreen>
     DateTime initialDate = DateTime.now();
     DateTime firstDate = DateTime.now();
 
-
     if (label == 'Check-out' && _checkinDate != null) {
       initialDate = _checkinDate!.add(const Duration(days: 1));
       firstDate = _checkinDate!.add(const Duration(days: 1));
@@ -277,10 +276,15 @@ class _DetailScreenState extends State<DetailScreen>
           SliverAppBar(
             expandedHeight: 320,
             floating: false,
-            pinned: true,
+            pinned: false,
+            snap: false,
             backgroundColor: Colors.white,
             foregroundColor: const Color(0xFF1A1A1A),
             elevation: 0,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
             flexibleSpace: FlexibleSpaceBar(
               background: Container(
                 decoration: const BoxDecoration(
@@ -454,11 +458,29 @@ class _DetailScreenState extends State<DetailScreen>
                 ),
               ),
               const Spacer(),
-              Container(
+              SizedBox(
                 height: 56,
                 width: 140,
                 child: ElevatedButton(
-                  onPressed: () => context.goNamed('confirm_booking'),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder:
+                          (context) => AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            title: const Text('Success'),
+                            content: const Text('Booking Confirmed!'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kMainThemeColor,
                     foregroundColor: kSecondaryThemeColor,
@@ -482,7 +504,7 @@ class _DetailScreenState extends State<DetailScreen>
 
   Widget _buildDateSelector(String label, DateTime? date, IconData icon) {
     return GestureDetector(
-      onTap: () => _selectDate(label), // Fixed: Pass the full label
+      onTap: () => _selectDate(label),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
