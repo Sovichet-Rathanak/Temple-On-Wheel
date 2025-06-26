@@ -1,3 +1,6 @@
+import 'dart:ffi';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:temple_on_wheel/components/home/carousel.dart';
@@ -30,6 +33,12 @@ final List<String> electricbikes = [
   'assets/ebike1.png',
   'assets/ebike1.png',
 ];
+
+final List<String> allVehicles = [
+  ...electricbikes,
+  ...motorbikes,
+  ...bikecycles,
+]..shuffle(Random());
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -115,11 +124,33 @@ class HomeScreen extends StatelessWidget {
 
           const SizedBox(height: 24),
 
-          _buildSectionHeader(
-            context,
-            title: 'Trending Transportation',
-            onSeeAll: () => context.goNamed('browse'),
+          // Trending Transportation Section
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Trending Transportation',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: kMainThemeColor,
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  GoRouter.of(context).go('/home/browse', extra: allVehicles);
+                },
+                child: Text(
+                  'See all',
+                  style: TextStyle(
+                    color: kMainThemeColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
+
           const SizedBox(height: 16),
           const ProductCard(
             name: 'TREK F1000',

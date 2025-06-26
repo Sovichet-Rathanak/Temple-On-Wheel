@@ -66,7 +66,7 @@ final GoRouter router = GoRouter(
                   path: 'browse',
                   name: 'browse',
                   builder: (context, state) {
-                    final items = state.extra as List<String>;
+                    final items = state.extra as List<String>? ?? [];
                     return Browse(data: items);
                   },
                   routes: [
@@ -135,18 +135,6 @@ final GoRouter router = GoRouter(
               path: '/station',
               name: 'station',
               builder: (context, state) => StationScreen(),
-              routes: [], //use for nested route
-            ),
-          ],
-        ),
-
-        // History tab
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/history',
-              name: 'history',
-              builder: (context, state) => HistoryScreen(),
               routes: [], //use for nested route
             ),
           ],

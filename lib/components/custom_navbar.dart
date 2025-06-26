@@ -51,13 +51,6 @@ class CustomNavbar extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(top: 15),
             child: NavigationDestination(
-              icon: Icon(Icons.history, color: kSecondaryThemeColor),
-              label: '',
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 15),
-            child: NavigationDestination(
               icon: Icon(Icons.person, color: kSecondaryThemeColor),
               label: '',
             ),
