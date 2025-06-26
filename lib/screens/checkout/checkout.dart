@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:temple_on_wheel/constants/theme.dart';
 
 class Checkout extends StatelessWidget {
@@ -56,7 +57,7 @@ class Checkout extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       // Navigate to home or booking details
-                      Navigator.pop(context);
+                      context.goNamed("home");
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: kMainThemeColor,

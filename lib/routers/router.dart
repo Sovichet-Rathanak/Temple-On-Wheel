@@ -74,27 +74,6 @@ final GoRouter router = GoRouter(
                       path: 'detail',
                       name: 'detail1',
                       builder: (context, state) => DetailScreen(),
-                      routes: [
-                        GoRoute(
-                          path: 'confirm_booking',
-                          name: 'confirm_booking',
-                          builder: (context, state) => ConfirmBooking(),
-                          routes: [
-                            GoRoute(
-                              path: 'qr_code',
-                              name: 'qr_code',
-                              builder: (context, state) => QRCode(),
-                              routes: [
-                                GoRoute(
-                                  path: 'checkout',
-                                  name: 'checkout',
-                                  builder: (context, state) => Checkout(),
-                                ),
-                              ], //u
-                            ),
-                          ], //use for nested route
-                        ),
-                      ],
                     ),
                   ],
                 ),
@@ -113,12 +92,12 @@ final GoRouter router = GoRouter(
               routes: [
                 GoRoute(
                   path: 'qr_code',
-                  name: 'qr_code1',
+                  name: 'qr_code',
                   builder: (context, state) => QRCode(),
                   routes: [
                     GoRoute(
                       path: 'checkout',
-                      name: 'checkout1',
+                      name: 'checkout',
                       builder: (context, state) => Checkout(),
                     ),
                   ], //use for nested route
