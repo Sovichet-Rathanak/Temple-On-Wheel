@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:temple_on_wheel/constants/theme.dart';
 import 'package:temple_on_wheel/services/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -131,19 +132,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(height: 40),
 
                 // Illustration
+                // Updated Illustration - responsive and slightly larger
                 Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      print('Sign up image tapped');
-                    },
-                    child: Container(
-                      width: 280,
-                      height: 200,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height:
+                        MediaQuery.of(context).size.width *
+                        0.65, // increased height
+                    margin: const EdgeInsets.only(top: 8),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
                       child: Image.asset(
                         'assets/signup.png',
-                        width: 280,
-                        height: 200,
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -296,7 +297,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: ElevatedButton(
                     onPressed: _isLoading ? null : _handleSignUp,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2D5A3D),
+                      backgroundColor: kMainThemeColor,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -313,10 +314,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 strokeWidth: 2,
                               ),
                             )
-                            : const Text(
+                            : Text(
                               'Create Account',
                               style: TextStyle(
                                 fontSize: 18,
+                                color: kSecondaryThemeColor,
+                                fontFamily: "Inter",
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

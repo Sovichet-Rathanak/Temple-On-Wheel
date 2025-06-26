@@ -52,10 +52,19 @@ class _DetailScreenState extends State<DetailScreen>
   }
 
   Future<void> _selectDate(String label) async {
+    DateTime initialDate = DateTime.now();
+    DateTime firstDate = DateTime.now();
+
+
+    if (label == 'Check-out' && _checkinDate != null) {
+      initialDate = _checkinDate!.add(const Duration(days: 1));
+      firstDate = _checkinDate!.add(const Duration(days: 1));
+    }
+
     final picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
+      initialDate: initialDate,
+      firstDate: firstDate,
       lastDate: DateTime(2100),
       builder: (context, child) {
         return Theme(
@@ -69,11 +78,17 @@ class _DetailScreenState extends State<DetailScreen>
         );
       },
     );
+
     if (picked != null) {
       setState(() {
-        if (label == 'Checkin') {
+        if (label == 'Check-in') {
           _checkinDate = picked;
-        } else {
+          // Reset check-out if it's before the new check-in date
+          if (_checkoutDate != null &&
+              _checkoutDate!.isBefore(picked.add(const Duration(days: 1)))) {
+            _checkoutDate = null;
+          }
+        } else if (label == 'Check-out') {
           _checkoutDate = picked;
         }
       });
@@ -200,13 +215,17 @@ class _DetailScreenState extends State<DetailScreen>
                                 SnackBar(
                                   content: Row(
                                     children: [
-                                      const Icon(
+                                      Icon(
                                         Icons.check_circle,
-                                        color: Colors.white,
+                                        color: kSecondaryThemeColor,
                                       ),
                                       const SizedBox(width: 8),
                                       Text(
                                         'Thanks for rating ${currentRating.toStringAsFixed(1)} stars!',
+                                        style: TextStyle(
+                                          fontFamily: "Inter",
+                                          color: kSecondaryThemeColor,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -220,7 +239,7 @@ class _DetailScreenState extends State<DetailScreen>
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: kMainThemeColor,
-                              foregroundColor: Colors.white,
+                              foregroundColor: kSecondaryThemeColor,
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -463,7 +482,7 @@ class _DetailScreenState extends State<DetailScreen>
 
   Widget _buildDateSelector(String label, DateTime? date, IconData icon) {
     return GestureDetector(
-      onTap: () => _selectDate(label.split('-')[0]),
+      onTap: () => _selectDate(label), // Fixed: Pass the full label
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
